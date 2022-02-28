@@ -36,7 +36,6 @@ namespace ForecAPI.Repoitories.General
                         };
                     var claims = new[]{
                     new Claim(JwtRegisteredClaimNames.UniqueName, userName),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString())
                 };
 
@@ -74,6 +73,24 @@ namespace ForecAPI.Repoitories.General
                 throw ex;
             }
         }
-
+        public async Task<ApplicationUser> GetUserByUserName(string userName)
+        {
+            var User = await _userManager.Users.Where(x => x.UserName == userName).FirstOrDefaultAsync();
+            return User;
+        }
+      
+        public async Task<ApplicationUser> GetUserByIdNumber(string IdNumber)
+        {
+            var User =await _userManager.Users.Where(x => x.IDNumber == IdNumber).FirstOrDefaultAsync();
+            return User;
+        }
+        public async Task<ApplicationUser> GetUsersByPhoneNumber(string PhoneNumber)
+        {
+            return await _userManager.Users.Where(x => x.PhoneNumber == PhoneNumber).FirstOrDefaultAsync();
+        }
+        public async Task AddRoleToUser(ApplicationUser user, string Role)
+        {
+            await _userManager.AddToRoleAsync(user, Role);
+        }
     }
 }

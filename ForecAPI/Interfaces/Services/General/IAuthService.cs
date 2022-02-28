@@ -5,6 +5,7 @@ namespace ForecAPI.Interfaces.Services
 {
     public interface IAuthService
     {
-        Task<ServiceResponse<string>> Login(LoginModel model);
+        Task<ServiceResponse<string>> Login(LoginDto model);
+        Task<ServiceResponse<int>> RegisterAccounUser(RegisterUserDto registerAccountUserDto);
     }
 }

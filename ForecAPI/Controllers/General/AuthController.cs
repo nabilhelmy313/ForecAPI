@@ -18,11 +18,17 @@ namespace ForecAPI.Controllers.General
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<IActionResult> Login([FromBody] LoginDto model)
         {
-            var token = await _authService.Login(model);
-            return Ok(token);
+            var res = await _authService.Login(model);
+            return Ok(res);
         }
-
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterUserDto model)
+        {
+            var res = await _authService.RegisterAccounUser(model);
+            return Ok(res);
+        }
     }
 }

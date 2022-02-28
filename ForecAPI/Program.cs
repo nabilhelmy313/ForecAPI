@@ -1,3 +1,4 @@
+using ForecAPI.Application;
 using ForecAPI.Interfaces.Repositories.General;
 using ForecAPI.Interfaces.Services;
 using ForecAPI.Models;
@@ -26,6 +27,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
     .AddEntityFrameworkStores<ForceDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddAutoMapper(typeof(MappingProfileBase));
 
 #region Configure Repositories
 builder.Services.AddScoped(typeof(IApplicationUserRepository), typeof(ApplicationUserRepository));

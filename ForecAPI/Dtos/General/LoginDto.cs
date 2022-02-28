@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ForecAPI.Dtos.General
 {
-    public class LoginModel
+    public class LoginDto
     {
         [Required(ErrorMessageResourceName = "اسم المستخدم مطلوب")]
         public string UserName { get; set; }

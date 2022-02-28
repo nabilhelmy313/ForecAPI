@@ -53,6 +53,28 @@ namespace ForecAPI.Models
             return await base.SaveChangesAsync( cancellationToken);
 
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
 
+            builder.Entity<ApplicationUser>(ur =>
+            {
+                ur.HasKey(ur => ur.Id);
+                ur.HasOne(ur => ur.Force).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.ForceCode).HasPrincipalKey(a=>a.ForceCode);
+                ur.HasOne(ur => ur.Base).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.BaseCode).HasPrincipalKey(a => a.Code);
+                ur.HasOne(ur => ur.BaseSection).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.BaseSectionCode).HasPrincipalKey(a => a.Code);
+            });
+            builder.Entity<Force>(ur =>
+            {
+                ur.HasKey(ur => ur.Id);
+                ur.HasMany(ur => ur.Bases).WithOne(u => u.Force).HasForeignKey(ur => ur.Id);
+             });
+            builder.Entity<Base>(ur =>
+            {
+                ur.HasKey(ur => ur.Id);
+                ur.HasMany(ur => ur.BaseSection).WithOne(u => u.Base).HasForeignKey(ur => ur.Id);
+            });
+        }
+
+        }
     }
-}
