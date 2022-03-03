@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForecAPI.Migrations
 {
     [DbContext(typeof(ForceDbContext))]
-    [Migration("20220303134545_one")]
-    partial class one
+    [Migration("20220303214229_newmigration")]
+    partial class newmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,13 +61,11 @@ namespace ForecAPI.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("BaseCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("BaseId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BaseSectionCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("BaseSectionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -83,9 +81,8 @@ namespace ForecAPI.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ForceCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("ForceId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("IDNumber")
                         .IsRequired()
@@ -148,11 +145,11 @@ namespace ForecAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BaseCode");
+                    b.HasIndex("BaseId");
 
-                    b.HasIndex("BaseSectionCode");
+                    b.HasIndex("BaseSectionId");
 
-                    b.HasIndex("ForceCode");
+                    b.HasIndex("ForceId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -199,9 +196,24 @@ namespace ForecAPI.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("BaseId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Create_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Is_Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Last_Modify_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -214,9 +226,17 @@ namespace ForecAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("Create_Date")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ForceCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Is_Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Last_Modify_Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -417,22 +437,19 @@ namespace ForecAPI.Migrations
                 {
                     b.HasOne("ForecAPI.Models.Base", "Base")
                         .WithMany("ApplicationUsers")
-                        .HasForeignKey("BaseCode")
-                        .HasPrincipalKey("Code")
+                        .HasForeignKey("BaseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ForecAPI.Models.BaseSection", "BaseSection")
                         .WithMany("ApplicationUsers")
-                        .HasForeignKey("BaseSectionCode")
-                        .HasPrincipalKey("Code")
+                        .HasForeignKey("BaseSectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ForecAPI.Models.Force", "Force")
                         .WithMany("ApplicationUsers")
-                        .HasForeignKey("ForceCode")
-                        .HasPrincipalKey("ForceCode")
+                        .HasForeignKey("ForceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

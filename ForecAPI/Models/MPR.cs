@@ -10,7 +10,7 @@
 		public decimal UnitCost { get; set; }
 		public decimal Total_Estimate_Cost { get; set; }
 		public string? Reason_For_Purchase { get; set; }
-		public string? Address_For_Delivery { get; set; } // Base code
+		public Guid? Address_For_Delivery { get; set; } // Base id
 		public string? Method_of_Delivery { get; set; } // masterDataCode
         public string Type_Code{ get; set; }//masterdatacode
 

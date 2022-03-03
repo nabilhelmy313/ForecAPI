@@ -12,9 +12,9 @@ namespace ForecAPI.Models
         public string Name { get; set; }
         public string Job { get; set; }
         public string State { get; set; }
-        public string ForceCode { get; set; }
-        public string BaseCode { get; set; }
-        public string BaseSectionCode { get; set; }
+        public Guid ForceId { get; set; }
+        public Guid BaseId { get; set; }
+        public Guid BaseSectionId { get; set; }
         public virtual Force Force { get; set; }
         public virtual Base Base { get; set; }
         public virtual BaseSection BaseSection { get; set; }

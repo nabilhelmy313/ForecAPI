@@ -6,7 +6,7 @@ namespace ForecAPI.Models
     {
         [ForeignKey("BaseId")]
         public Guid BaseId { get; set; }
-        public string? Code { get; set; }
+        public string Name { get; set; }
         public virtual Base? Base { get; set; }
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }

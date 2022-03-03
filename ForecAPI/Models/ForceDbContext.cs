@@ -63,24 +63,21 @@ namespace ForecAPI.Models
             builder.Entity<ApplicationUser>(ur =>
             {
                 ur.HasKey(ur => ur.Id);
-                ur.HasOne(ur => ur.Force).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.ForceCode).HasPrincipalKey(a=>a.ForceCode);
-                ur.HasOne(ur => ur.Base).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.BaseCode).HasPrincipalKey(a => a.Code);
-                ur.HasOne(ur => ur.BaseSection).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.BaseSectionCode).HasPrincipalKey(a => a.Code);
+                ur.HasOne(ur => ur.Force).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.ForceId);
+                ur.HasOne(ur => ur.Base).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.BaseId);
+                ur.HasOne(ur => ur.BaseSection).WithMany(u => u.ApplicationUsers).HasForeignKey(ur => ur.BaseSectionId);
             });
-            builder.Entity<Force>(ur =>
-            {
-                ur.HasKey(ur => ur.Id);
-                ur.HasMany(ur => ur.Bases).WithOne(u => u.Force).HasForeignKey(ur => ur.Id);
-             });
+          
             builder.Entity<Base>(ur =>
             {
                 ur.HasKey(ur => ur.Id);
-                ur.HasMany(ur => ur.BaseSection).WithOne(u => u.Base).HasForeignKey(ur => ur.Id);
+                ur.HasMany(ur => ur.BaseSection).WithOne(u => u.Base).HasForeignKey(ur => ur.BaseId);
+                ur.HasOne(a => a.Force).WithMany(a => a.Bases).HasForeignKey(a => a.ForceId);
             });
             builder.Entity<MPR>(ur =>
             {
                 ur.HasKey(ur => ur.Id);
-                ur.HasOne(ur => ur.AddressOfDelivery).WithMany(u => u.MPRs).HasForeignKey(ur => ur.Address_For_Delivery).HasPrincipalKey(a => a.Code);
+                ur.HasOne(ur => ur.AddressOfDelivery).WithMany(u => u.MPRs).HasForeignKey(ur => ur.Address_For_Delivery);
             });
         }
 

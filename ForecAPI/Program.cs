@@ -2,9 +2,16 @@ using ForecAPI.Application;
 using ForecAPI.Interfaces.Repositories;
 using ForecAPI.Interfaces.Repositories.General;
 using ForecAPI.Interfaces.Services;
+using ForecAPI.Interfaces.Services.Bases;
+using ForecAPI.Interfaces.Services.BaseSections;
+using ForecAPI.Interfaces.Services.Forces;
 using ForecAPI.Models;
 using ForecAPI.Repoitories;
 using ForecAPI.Repoitories.General;
+using ForecAPI.Service;
+using ForecAPI.Service.Bases;
+using ForecAPI.Service.BaseSections;
+using ForecAPI.Service.Forces;
 using ForecAPI.Service.General;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -34,9 +41,14 @@ builder.Services.AddAutoMapper(typeof(MappingProfileBase));
 builder.Services.AddScoped(typeof(IApplicationUserRepository), typeof(ApplicationUserRepository));
 builder.Services.AddScoped(typeof(IForceRepository), typeof(ForceRepository));
 builder.Services.AddScoped(typeof(IForceBaseRepository), typeof(ForceBaseRepository));
+builder.Services.AddScoped(typeof(IBaseSectionRepository), typeof(BaseSectionReposiroty));
 #endregion
 #region Configure services
+builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 builder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
+builder.Services.AddScoped(typeof(IForceService), typeof(ForceService));
+builder.Services.AddScoped(typeof(IForceBaseService), typeof(ForceBaseService));
+builder.Services.AddScoped(typeof(IBaseSectionService), typeof(BaseSectionService));
 #endregion
 #region Read Token
 builder.Services.AddAuthentication(options =>
