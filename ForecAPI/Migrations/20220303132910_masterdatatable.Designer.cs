@@ -4,6 +4,7 @@ using ForecAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForecAPI.Migrations
 {
     [DbContext(typeof(ForceDbContext))]
-    partial class ForceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220303132910_masterdatatable")]
+    partial class masterdatatable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,7 +310,7 @@ namespace ForecAPI.Migrations
 
                     b.HasIndex("Address_For_Delivery");
 
-                    b.ToTable("MPRs");
+                    b.ToTable("Quotations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

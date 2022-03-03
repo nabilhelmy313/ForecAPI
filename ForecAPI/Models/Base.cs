@@ -8,5 +8,6 @@
         public virtual Force? Force { get; set; }
         public virtual ICollection<BaseSection>? BaseSection { get; set; }
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual ICollection<MPR>  MPRs{ get; set; }
     }
 }

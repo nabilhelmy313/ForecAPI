@@ -4,6 +4,7 @@ using ForecAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForecAPI.Migrations
 {
     [DbContext(typeof(ForceDbContext))]
-    partial class ForceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220303134545_one")]
+    partial class one
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,9 +197,6 @@ namespace ForecAPI.Migrations
             modelBuilder.Entity("ForecAPI.Models.BaseSection", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BaseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")

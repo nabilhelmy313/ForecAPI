@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ForecAPI.Models.General;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForecAPI.Models
@@ -8,10 +9,12 @@ namespace ForecAPI.Models
         public ForceDbContext(DbContextOptions<ForceDbContext> options) : base(options)
         {
         }
-        public DbSet<Quotation>  Quotations { get; set; }
+        public DbSet<MPR>  MPRs { get; set; }
         public DbSet<Base> Bases{ get; set; }
         public DbSet<BaseSection>  BaseSections{ get; set; }
         public DbSet<Force>  Forces{ get; set; }
+        public DbSet<MasterData>  MasterDatas{ get; set; }
+
         public override async Task<int> SaveChangesAsync( CancellationToken cancellationToken = new CancellationToken())
         {
 
@@ -73,6 +76,11 @@ namespace ForecAPI.Models
             {
                 ur.HasKey(ur => ur.Id);
                 ur.HasMany(ur => ur.BaseSection).WithOne(u => u.Base).HasForeignKey(ur => ur.Id);
+            });
+            builder.Entity<MPR>(ur =>
+            {
+                ur.HasKey(ur => ur.Id);
+                ur.HasOne(ur => ur.AddressOfDelivery).WithMany(u => u.MPRs).HasForeignKey(ur => ur.Address_For_Delivery).HasPrincipalKey(a => a.Code);
             });
         }
 
