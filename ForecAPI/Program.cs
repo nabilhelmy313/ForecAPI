@@ -1,4 +1,5 @@
 using ForecAPI.Application;
+using ForecAPI.Interfaces.Repositories;
 using ForecAPI.Interfaces.Repositories.General;
 using ForecAPI.Interfaces.Services;
 using ForecAPI.Models;
@@ -31,6 +32,8 @@ builder.Services.AddAutoMapper(typeof(MappingProfileBase));
 
 #region Configure Repositories
 builder.Services.AddScoped(typeof(IApplicationUserRepository), typeof(ApplicationUserRepository));
+builder.Services.AddScoped(typeof(IForceRepository), typeof(ForceRepository));
+builder.Services.AddScoped(typeof(IForceBaseRepository), typeof(ForceBaseRepository));
 #endregion
 #region Configure services
 builder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
