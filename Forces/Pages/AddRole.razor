@@ -1,0 +1,41 @@
+﻿@page "/AddRole"
+@using Dtos
+@using MudBlazor
+
+<MudCard Class="container mt-3">
+	<MudForm Model="@model" @ref="@form">
+		<MudCardContent>
+				<h3 class="text-center">Add Role</h3>
+
+				<MudTextField @bind-Value="model.RoleName"
+							  For="@(() => model.RoleName)"
+							  Immediate="true"
+							  Label="Role Name" />
+
+				<MudTextField @bind-Value="model.RoleCode"
+							  For="@(() => model.RoleCode)"
+							  Immediate="true"
+							  Label="Role Code" />
+
+
+        </MudCardContent>
+		
+	</MudForm>
+    <MudCardActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Class="ml-auto" Style="width:150px"  OnClick="@(async () => await Submit())">Add Role</MudButton>
+    </MudCardActions>
+</MudCard>
+@code {
+	Dtos.AddRole model = new();
+	[Inject] ISnackbar Snackbar { get; set; }
+
+    MudForm form;
+	private async Task Submit()
+    {
+        if (form.IsValid)
+        {
+            Snackbar.Add("Submited!");
+        }
+    }
+
+}

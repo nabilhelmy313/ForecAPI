@@ -1,0 +1,108 @@
+﻿@page "/Adduser"
+@using MudBlazor
+
+
+<MudCard Class="container mt-3">
+    <MudForm Model="@model" @ref="@form">
+        <MudCardContent>
+            <h3 class="text-center">Add User</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <MudTextField @bind-Value="model.Number"
+                                  For="@(() => model.Number)"
+                                  Immediate="true"
+                                  Label="Number" />
+                </div>
+                <div class="col-md-6">
+                    <MudTextField @bind-Value="model.Village"
+                                  For="@(() => model.Village)"
+                                  Immediate="true"
+                                  Label="Village" />
+                </div>
+                <div class="col-md-6">
+                    <MudTextField @bind-Value="model.Name"
+                                  For="@(() => model.Name)"
+                                  Immediate="true"
+                                  Label="Name" />
+                </div>
+                <div class="col-md-6">
+                    <MudSelect T="string" Label="Unit" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelectItem Value="@("Supplay")" />
+                        <MudSelectItem Value="@("Supplay one")" />
+                    </MudSelect>
+                </div>
+                <div class="col-md-6">
+                    <MudTextField @bind-Value="model.Job"
+                                  For="@(() => model.Job)"
+                                  Immediate="true"
+                                  Label="Job" />
+                </div>
+                <div class="col-md-6">
+                    <MudSelect T="string" Label="Base" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelectItem Value="@("Base One")" />
+                        <MudSelectItem Value="@("Base Two")" />
+                    </MudSelect>
+                </div>
+                <div class="col-md-6">
+                    <MudTextField @bind-Value="model.State"
+                                  For="@(() => model.State)"
+                                  Immediate="true"
+                                  Label="state" />
+                </div>
+                <div class="col-md-6">
+                    <MudTextField @bind-Value="model.Phone"
+                                  For="@(() => model.Phone)"
+                                  Immediate="true"
+                                  Label="Phone" />
+                </div>
+                <div class="col-md-6">
+                    <MudTextField @bind-Value="model.Password" Label="Password" Variant="Variant.Text" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" />                
+                </div>
+                  <div class="col-md-6">
+                    <MudTextField @bind-Value="model.Password" Label="Confirm Password" Variant="Variant.Text" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="ButtonTestclick" />                
+                </div>
+            </div>
+
+        </MudCardContent>
+
+    </MudForm>
+    <MudCardActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Class="ml-auto" Style="width:150px" OnClick="@(async () => await Submit())">Add User</MudButton>
+    </MudCardActions>
+</MudCard>
+@code {
+    Dtos.User model = new();
+    [Inject] ISnackbar Snackbar { get; set; }
+
+    MudForm form;
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void ButtonTestclick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+    private async Task Submit()
+    {
+
+
+        if (form.IsValid)
+        {
+            Snackbar.Add("Submited!");
+        }
+    }
+
+}
+

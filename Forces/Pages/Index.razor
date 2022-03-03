@@ -1,0 +1,104 @@
+﻿@page "/"
+@using MudBlazor
+    <div class="row mt-3">
+        <div class="col-md">
+            <MudCard Elevation="3">
+                <div class="row">
+                    <div class="col-9">
+                        <MudCardContent>
+                            <MudText Style="@($"color:{Colors.DeepOrange.Darken2}")" Typo="Typo.h4">0</MudText>
+                            <MudText Style="@($"color:{Colors.DeepOrange.Darken2}")" Typo="Typo.body1">Wating</MudText>
+                        </MudCardContent>
+                    </div>
+                    <div class="col-3 d-flex ">
+                        <div class="align-self-center">
+                                <MudIcon Style="@($"color:{Colors.DeepOrange.Darken2}")"  Icon="@Icons.Filled.Timer" Size="Size.Large" />
+                        </div>
+                    </div>
+                </div>
+            </MudCard>
+        </div>
+       
+         <div class="col-md">
+            <MudCard Elevation="3">
+                <div class="row">
+                    <div class="col-9">
+                        <MudCardContent>
+                            <MudText Typo="Typo.h4" Style="@($"color:{Colors.LightGreen.Darken4}")">0</MudText>
+                            <MudText Typo="Typo.body1" Style="@($"color:{Colors.LightGreen.Darken4}")">Ready</MudText>
+                        </MudCardContent>
+                    </div>
+                    <div class="col-3 d-flex ">
+                        <div class="align-self-center">
+                                <MudIcon Style="@($"color:{Colors.LightGreen.Darken4}")"  Icon="@Icons.Filled.AssignmentTurnedIn" Size="Size.Large" />
+                        </div>
+                    </div>
+                </div>
+            </MudCard>
+        </div>
+         <div class="col-md">
+            <MudCard Elevation="3">
+                <div class="row">
+                    <div class="col-9">
+                        <MudCardContent>
+                            <MudText Typo="Typo.h4" Style="@($"color:{Colors.Yellow.Darken4}")">0</MudText>
+                            <MudText Typo="Typo.body1" Style="@($"color:{Colors.Yellow.Darken4}")">Returned</MudText>
+                        </MudCardContent>
+                    </div>
+                    <div class="col-3 d-flex ">
+                        <div class="align-self-center">
+                                <MudIcon Style="@($"color:{Colors.Yellow.Darken4}")"  Icon="@Icons.Filled.Autorenew" Size="Size.Large" />
+                        </div>
+                    </div>
+                </div>
+            </MudCard>
+        </div>
+       <div class="col-md">
+            <MudCard Elevation="3">
+                <div class="row">
+                    <div class="col-9">
+                        <MudCardContent>
+                            <MudText Typo="Typo.h4" Style="@($"color:{Colors.Red.Darken4}")">0</MudText>
+                            <MudText Typo="Typo.body1" Style="@($"color:{Colors.Red.Darken4}")">Cancel</MudText>
+                        </MudCardContent>
+                    </div>
+                    <div class="col-3 d-flex ">
+                        <div class="align-self-center">
+                                <MudIcon Style="@($"color:{Colors.Red.Darken4}")"  Icon="@Icons.Filled.Cancel" Size="Size.Large" />
+                        </div>
+                    </div>
+                </div>
+            </MudCard>
+        </div>
+       
+    </div>
+  
+    <MudChart ChartType="ChartType.Line" ChartSeries="@Series" @bind-SelectedIndex="Index1" XAxisLabels="@XAxisLabels" Width="50%" Height="350px"></MudChart>
+  
+@code {
+    private int Index1 = -1; //default value cannot be 0 -> first selectedindex is 0.
+
+    public List<ChartSeries> Series = new List<ChartSeries>()
+    {
+        new ChartSeries() { Name = "Series 1", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+        new ChartSeries() { Name = "Series 2", Data = new double[] { 10, 41, 35, 51, 49, 62, 69, 91, 148 } },
+    };
+    public string[] XAxisLabels = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+
+    Random random = new Random();
+    public void RandomizeData()
+    {
+        var new_series = new List<ChartSeries>()
+        {
+            new ChartSeries() { Name = "Series 1", Data = new double[9] },
+            new ChartSeries() { Name = "Series 2", Data = new double[9] },
+        };
+        for (int i = 0; i < 9; i++)
+        {
+            new_series[0].Data[i] = random.NextDouble() * 100;
+            new_series[1].Data[i] = random.NextDouble() * 100;
+        }
+        Series = new_series;
+        StateHasChanged();
+    }
+}

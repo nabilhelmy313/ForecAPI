@@ -1,0 +1,21 @@
+﻿@using MudBlazor
+<style>
+  
+
+</style>
+<MudPaper  Class="py-3" Elevation="0">
+    <MudNavMenu Color="Color.Tertiary" Bordered="true">
+       
+        <MudNavLink Alighn Href="/" Icon="@Icons.Filled.Dashboard"  Match="NavLinkMatch.All" Style=@($"color:{Colors.Teal.Darken2};" ) >لوحة التحكم</MudNavLink>
+        <MudNavLink Href="/quotation" Icon="@Icons.Filled.NoteAdd"   Style=@($"color:{Colors.Teal.Darken2};" ) >أضافة مقترح</MudNavLink>
+        
+        <MudNavLink Href="/tracking" Icon="@Icons.Filled.Receipt"  Style=@($"color:{Colors.Teal.Darken2};" ) >الموافقات</MudNavLink>
+        <MudNavGroup Title="الأعدادات" Icon="@Icons.Filled.Settings" Expanded="true" Style=@($"color:{Colors.Teal.Darken2};" ) >
+            <MudNavLink Href="/Adduser" Style=@($"color:{Colors.Teal.Darken2};" ) Icon="@Icons.Filled.Security">أضافة مستخدم</MudNavLink>
+            <MudNavLink Href="/AddRole" Style=@($"color:{Colors.Teal.Darken2};" ) Icon="@Icons.Filled.People">الادوار</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+</MudPaper>
+@code {
+
+}

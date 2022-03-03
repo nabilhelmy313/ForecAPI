@@ -1,0 +1,85 @@
+﻿@page "/quotation"
+@using Forces.Dtos
+@using MudBlazor
+
+<MudCard Class="container mt-3">
+	<MudForm Model="@model" @ref="@form">
+		<MudCardContent>
+				<h3 class="text-center">Add MPR</h3>
+
+				<MudTextField @bind-Value="model.ReasonForPurchase"
+							  For="@(() => model.ReasonForPurchase)"
+							  Immediate="true"
+							  Label="Reason For Purchase" />
+
+				<MudTextField @bind-Value="model.AddressForDelivery"
+							  For="@(() => model.AddressForDelivery)"
+							  Immediate="true"
+							  Label="Address For Delivery" />
+
+				<MudTextField @bind-Value="model.Description"
+							  For="@(() => model.Description)"
+							  Immediate="true"
+							  Label="Description" />
+
+				<MudTextField @bind-Value="model.PackingInstruction"
+							  For="@(() => model.PackingInstruction)"
+							  Immediate="true"
+							  Label="Packing Instruction" />
+
+				<MudTextField @bind-Value="model.QTY"
+							  For="@(() => model.QTY)"
+							  Immediate="true"
+							  Label="Quantity" />
+
+
+				<MudTextField @bind-Value="model.Phone"
+							  For="@(() => model.Phone)"
+							  Immediate="true"
+							  Label="Phone" />
+			<MudSelect T="string" Label="D OF Q" AnchorOrigin="Origin.BottomCenter">
+				<MudSelectItem Value="@("BOX")" />
+				<MudSelectItem Value="@("EA")" />
+				<MudSelectItem Value="@("PAIR")" />
+			</MudSelect>
+			<MudSelect T="string" Label="Method Of delivery" AnchorOrigin="Origin.BottomCenter">
+				<MudSelectItem Value="@("Shiping")" />
+				<MudSelectItem Value="@("Wild")" />
+			</MudSelect>
+			<div class="d-flex justify-content-center mt-4">
+				<InputFile id="fileInput112" hidden multiple accept=".jpg, .jpeg, .png" />
+
+				<MudButton HtmlTag="label"
+						   Variant="Variant.Text"
+						   Color="Color.Tertiary"
+						   StartIcon="@Icons.Filled.CloudUpload"
+						   Class="p-3"
+						   for="fileInput112">
+					Upload your Attachmnet
+				</MudButton>
+			</div>
+        </MudCardContent>
+		
+	</MudForm>
+    <MudCardActions>
+        <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Class="ml-auto" Style="width:150px"  OnClick="@(async () => await Submit())">Add MPR</MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+	[Inject] ISnackbar Snackbar { get; set; }
+
+    MudForm form;
+    MPR model = new MPR();
+
+ 
+    private async Task Submit()
+    {
+        if (form.IsValid)
+        {
+            Snackbar.Add("Submited!");
+        }
+    }
+
+
+}
