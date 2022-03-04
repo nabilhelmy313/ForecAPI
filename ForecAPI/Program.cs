@@ -1,4 +1,5 @@
 using ForecAPI.Application;
+using ForecAPI.Dtos.General;
 using ForecAPI.Interfaces.Repositories;
 using ForecAPI.Interfaces.Repositories.General;
 using ForecAPI.Interfaces.Services;
@@ -18,6 +19,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +47,7 @@ builder.Services.AddScoped(typeof(IBaseSectionRepository), typeof(BaseSectionRep
 #endregion
 #region Configure services
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+//builder.Services.AddScoped(typeof(IConfiguration), typeof(Configuration));
 builder.Services.AddScoped(typeof(IAuthService), typeof(AuthService));
 builder.Services.AddScoped(typeof(IForceService), typeof(ForceService));
 builder.Services.AddScoped(typeof(IForceBaseService), typeof(ForceBaseService));
@@ -72,6 +75,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 #endregion
+
 
 var app = builder.Build();
 

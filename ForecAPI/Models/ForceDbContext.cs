@@ -14,6 +14,7 @@ namespace ForecAPI.Models
         public DbSet<BaseSection>  BaseSections{ get; set; }
         public DbSet<Force>  Forces{ get; set; }
         public DbSet<MasterData>  MasterDatas{ get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
 
         public override async Task<int> SaveChangesAsync( CancellationToken cancellationToken = new CancellationToken())
         {
