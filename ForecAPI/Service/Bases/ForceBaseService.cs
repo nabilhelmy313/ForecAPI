@@ -43,8 +43,12 @@ namespace ForecAPI.Service.Bases
                 {
                     var force = _forcebaseRepository.FindByID(Guid.Parse(addBaseDto.Id));
                     if (force == null) return new ServiceResponse<int> { Data = 0, Success = false, Message = "لا يوجد بيانات" };
-                    force.Name = addBaseDto.Name;
-                    force.Is_Deleted = addBaseDto.IsDeleted;
+                    if (addBaseDto.IsDeleted) force.Is_Deleted = addBaseDto.IsDeleted;
+                    else
+                    {
+                        force.Name = addBaseDto.Name;
+                        force.Code = addBaseDto.Code;
+                    }
                 }
                 else
                 {
