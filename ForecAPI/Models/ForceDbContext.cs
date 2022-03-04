@@ -78,7 +78,7 @@ namespace ForecAPI.Models
             builder.Entity<MPR>(ur =>
             {
                 ur.HasKey(ur => ur.Id);
-                ur.HasOne(ur => ur.AddressOfDelivery).WithMany(u => u.MPRs).HasForeignKey(ur => ur.Address_For_Delivery);
+                ur.HasOne(ur => ur.AddressOfDelivery).WithMany(u => u.MPRs).HasForeignKey(ur => ur.Address_For_Delivery).HasPrincipalKey(a=>a.Code);
             });
         }
 

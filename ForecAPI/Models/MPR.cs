@@ -1,8 +1,7 @@
 ﻿namespace ForecAPI.Models
 {
-    public class MPR
+    public class MPR:BaseEntity
     {
-		public Guid Id { get; set; }
 		public string MPR_Number { get; set; }
 		public DateTime Date { get; set; }
 		public string Description { get; set; }
@@ -10,7 +9,7 @@
 		public decimal UnitCost { get; set; }
 		public decimal Total_Estimate_Cost { get; set; }
 		public string Reason_For_Purchase { get; set; }
-		public Guid Address_For_Delivery { get; set; } // Base id
+		public string Address_For_Delivery { get; set; } // Base id
 		public string Method_of_Delivery { get; set; } // masterDataCode
         public string? Type_Code{ get; set; }//masterdatacode
 

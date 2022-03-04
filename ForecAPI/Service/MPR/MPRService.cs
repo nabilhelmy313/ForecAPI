@@ -45,6 +45,8 @@ namespace ForecAPI.Service.MPR
                 {
                     var mpr = _mapper.Map<ForecAPI.Models.MPR>(addMPRDto);
                     mpr.Status = MPRStausEnum.ORGACCPT.ToString();
+                    var count = _mPRRepository.GetAll().Count();
+                    mpr.Address_For_Delivery = string.Concat(addMPRDto.AddressForDelivery, "/MPR/", count + 1, DateTime.Now.Year);
                     _mPRRepository.Create(mpr);
                     if (addMPRDto.File != null)
                     {

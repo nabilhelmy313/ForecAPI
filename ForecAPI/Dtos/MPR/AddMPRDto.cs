@@ -9,7 +9,7 @@
         public decimal UnitCost { get; set; }
         public decimal TotalEstimateCost { get; set; }
         public string ReasonForPurchase { get; set; }
-        public Guid AddressForDelivery { get; set; } // Base id
+        public string AddressForDelivery { get; set; } // Base id
         public string MethodofDelivery { get; set; } // masteDataCode
         public string? TypeCode { get; set; }//masterdatacode
         public string Status { get; set; } //ACCDCLOG
