@@ -7,6 +7,11 @@
         /// </summary>
         /// 
         ORGACCPT,
+        ///<summary>
+        ///Originator cancle mpr
+        /// </summary>
+        /// 
+        ORGCANCLE,
 
         ///<summary>
         ///OCLOG ACCPT

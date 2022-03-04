@@ -16,7 +16,7 @@ namespace ForecAPI.Repoitories.General
         public void DeleteFile(Guid attachmentId)
         {
             var attachment = _forceDbContext.Attachments.FirstOrDefault(a => a.Id == attachmentId);
-            attachment.Is_Deleted = false;
+            attachment.Is_Deleted = true;
         }
 
         public async Task<List<Attachment>> GetAttachmentsByRowId(Guid rowId)
