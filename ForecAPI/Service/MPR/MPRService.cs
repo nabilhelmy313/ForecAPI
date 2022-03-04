@@ -101,8 +101,27 @@ namespace ForecAPI.Service.MPR
                 throw;
             }
         }
-        
-        //public async Task<ServiceResponse<CollectionResponse<GetMPRsDto>>> GetAllMPRDto()
+
+        public async Task<ServiceResponse<int>> OCLOGReplay(OCLOGReplayDto oCLOGReplayDto)
+        {
+            try
+            {
+                var mprDb = _mPRRepository.FindByID(Guid.Parse(oCLOGReplayDto.Id));
+                if (mprDb == null) return new ServiceResponse<int> { Success = false, Message = "لا يوجد بيانات" };
+                mprDb.Status = oCLOGReplayDto.ReplayCode;
+                mprDb.Type_Code = oCLOGReplayDto.MPRType;
+                if (oCLOGReplayDto.ReplayCode == MPRStausEnum.OCLOGRETURN.ToString())
+                    mprDb.Feedback = oCLOGReplayDto.Feedback;
+                var result = await _unitOfWork.CommitAsync();
+                return new ServiceResponse<int> { Success = result > 0, Message = result > 0 ? "تمت العملية بنجاح" : "لم تتم العملية بنجاح" };
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+        //public async Task<ServiceResponse<CollectionResponse<GetMPRsDto>>> GetAllMPRDto(Guid userId)
         //{
         //    try
         //    {

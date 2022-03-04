@@ -7,5 +7,6 @@ namespace ForecAPI.Interfaces.Services.MPR
     {
         Task<ServiceResponse<int>> AddEditMPRForOrginator(AddMPRDto addMPRDto);
         Task<ServiceResponse<int>> CancleMprByOrginator(Guid MprId);
+        Task<ServiceResponse<int>> OCLOGReplay(OCLOGReplayDto oCLOGReplayDto);
     }
 }
