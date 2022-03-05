@@ -92,5 +92,14 @@ namespace ForecAPI.Repoitories.General
         {
             await _userManager.AddToRoleAsync(user, Role);
         }
+
+        public async Task<List<ApplicationRole>> GetAllRoles()
+        {
+            return await _forceDbContext.Roles.ToListAsync();
+        }
+        public async Task<List<IdentityUserRole<Guid>>> GetUserRoles(Guid UserId)
+        {
+            return await _forceDbContext.UserRoles.Where(a => a.UserId == UserId).ToListAsync();
+        }
     }
 }

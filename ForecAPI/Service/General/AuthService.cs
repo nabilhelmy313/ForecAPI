@@ -19,6 +19,21 @@ namespace ForecAPI.Service.General
             _Mapper = Mapper;
             _userManager = userManager;
         }
+
+        public async Task<ServiceResponse<List<string>>> GetRolesDropDown()
+        {
+            try
+            {
+                var roles = await _applicationUserRepository.GetAllRoles();
+                return new ServiceResponse<List<string>> { Success = true, Data = roles.Select(a=>a.Name).ToList()};
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
         public async Task<ServiceResponse<string>> Login(LoginDto model)
         {
             try

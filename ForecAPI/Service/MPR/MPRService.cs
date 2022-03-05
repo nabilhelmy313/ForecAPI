@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ForecAPI.Application;
+using ForecAPI.Dtos.General;
 using ForecAPI.Dtos.MPR;
 using ForecAPI.Enums;
 using ForecAPI.Interfaces.Repositories;
@@ -17,13 +18,15 @@ namespace ForecAPI.Service.MPR
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
         private readonly IAttachmentRepository _attachmentRepository;
-        public MPRService(IMPRRepository mPRRepository, IMapper mapper, IUnitOfWork unitOfWork, IFileService fileService, IAttachmentRepository attachmentRepository)
+        private readonly IApplicationUserRepository _applicationUserRepository;
+        public MPRService(IApplicationUserRepository applicationUserRepository,IMPRRepository mPRRepository, IMapper mapper, IUnitOfWork unitOfWork, IFileService fileService, IAttachmentRepository attachmentRepository)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _mPRRepository = mPRRepository;
             _fileService = fileService;
             _attachmentRepository = attachmentRepository;
+            _applicationUserRepository = applicationUserRepository;
         }
 
         public async Task<ServiceResponse<int>> AddEditMPRForOrginator(AddMPRDto addMPRDto)
@@ -92,6 +95,7 @@ namespace ForecAPI.Service.MPR
                 var mprDb = _mPRRepository.FindByID(MprId);
                 if (mprDb == null) return new ServiceResponse<int> { Success = false, Message = "لا يوجد بيانات" };
                 mprDb.Status= MPRStausEnum.ORGCANCLE.ToString();
+                mprDb.Is_Deleted = true;
                 var result = await _unitOfWork.CommitAsync();
                 return new ServiceResponse<int> { Success = result > 0, Message = result > 0 ? "تمت العملية بنجاح" : "لم تتم العملية بنجاح" };
             }
@@ -121,17 +125,42 @@ namespace ForecAPI.Service.MPR
                 throw;
             }
         }
-        //public async Task<ServiceResponse<CollectionResponse<GetMPRsDto>>> GetAllMPRDto(Guid userId)
-        //{
-        //    try
-        //    {
+        public async Task<ServiceResponse<CollectionResponse<GetMPRsDto>>> GetAllMPRDto(PaginationDto pagination,Guid userId)
+        {
+            try
+            {
+                var userRoles = await _applicationUserRepository.GetUserRoles(userId);
+                var mprs =new List<ForecAPI.Models.MPR>();
+                int length = 0;
+                if (userRoles.Any(a=>a.RoleId.ToString()== RolesIdsClass.Originator)|| userRoles.Any(a => a.RoleId.ToString() == RolesIdsClass.OC_LOG))
+                  (mprs,length) = await _mPRRepository.GetAllMPRWithPagination(pagination, MPRStausEnum.ORGACCPT.ToString(), null);
+                else if (userRoles.Any(a => a.RoleId.ToString() == RolesIdsClass.OC_DEPO))
+                    (mprs, length) = await _mPRRepository.GetAllMPRWithPagination(pagination, MPRStausEnum.OCLOGACCPT.ToString(), MprTypeEnum.GENRL.ToString());
+                else if (userRoles.Any(a => a.RoleId.ToString() == RolesIdsClass.OC_HQ))
+                    (mprs, length) = await _mPRRepository.GetAllMPRWithPagination(pagination, MPRStausEnum.OCLOGACCPT.ToString(), MprTypeEnum.TECHN.ToString());
+                else if (userRoles.Any(a => a.RoleId.ToString() == RolesIdsClass.D_FINANCE))
+                {
+                    (mprs, length) = await _mPRRepository.GetAllMPRWithPagination(pagination, MPRStausEnum.OCDEPOACCPT.ToString(), MprTypeEnum.GENRL.ToString());
+                    var othermprs = await _mPRRepository.GetAllMPRWithPagination(pagination, MPRStausEnum.OCHQACCPT.ToString(), MprTypeEnum.TECHN.ToString());
+                    mprs.AddRange(othermprs.Item1);
+                    length = length + othermprs.Item2;
+                }
+                else if (userRoles.Any(a => a.RoleId.ToString() == RolesIdsClass.D_LOG))
+                    (mprs, length) = await _mPRRepository.GetAllMPRWithPagination(pagination, MPRStausEnum.DFINANCEACCPT.ToString(), MprTypeEnum.GENRL.ToString());
+                else if (userRoles.Any(a => a.RoleId.ToString() == RolesIdsClass.SERVICE_COMMANDER))
+                    (mprs, length) = await _mPRRepository.GetAllMPRWithPagination(pagination, MPRStausEnum.DLOGDENGACCPT.ToString(), MprTypeEnum.GENRL.ToString());
 
-        //    }
-        //    catch (Exception ex)
-        //    {
+                if(length==0||mprs==null) return new ServiceResponse<CollectionResponse<GetMPRsDto>> { Success = false, Message = "لا يوجد بيانات" };
+                var mprsDtos = _mapper.Map<List<GetMPRsDto>>(mprs);
+                return new ServiceResponse<CollectionResponse<GetMPRsDto>> { Success = true,Data=new CollectionResponse<GetMPRsDto>(mprsDtos,length) };
 
-        //        throw;
-        //    }
-        //}
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

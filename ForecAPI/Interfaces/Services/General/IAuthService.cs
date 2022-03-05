@@ -7,5 +7,6 @@ namespace ForecAPI.Interfaces.Services
     {
         Task<ServiceResponse<string>> Login(LoginDto model);
         Task<ServiceResponse<int>> RegisterAccounUser(RegisterUserDto registerAccountUserDto);
+        Task<ServiceResponse<List<string>>> GetRolesDropDown();
     }
 }

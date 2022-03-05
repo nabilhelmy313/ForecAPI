@@ -1,5 +1,6 @@
 ﻿using ForecAPI.Models;
 using ForecAPI.Models.General;
+using Microsoft.AspNetCore.Identity;
 
 namespace ForecAPI.Interfaces.Repositories.General
 {
@@ -10,5 +11,7 @@ namespace ForecAPI.Interfaces.Repositories.General
         Task<ApplicationUser> GetUserByIdNumber(string IdNumber);
         Task<ApplicationUser> GetUsersByPhoneNumber(string PhoneNumber);
         Task AddRoleToUser(ApplicationUser user, string Role);
+        Task<List<ApplicationRole>> GetAllRoles();
+        Task<List<IdentityUserRole<Guid>>> GetUserRoles(Guid UserId);
     }
 }
