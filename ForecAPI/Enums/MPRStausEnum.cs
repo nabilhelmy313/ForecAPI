@@ -14,29 +14,26 @@
         ORGCANCLE,
 
         ///<summary>
+        ///OCLOG RETURN
+        /// </summary>
+        OCLOGRETURN,
+        ///<summary>
         ///OCLOG ACCPT
         /// </summary>
         OCLOGACCPT,
 
-        ///<summary>
-        ///OCLOG RETURN
-        /// </summary>
-        OCLOGRETURN,
 
+
+        ///<summary>
+        ///OCDEPO RETURN GENEAL MPR
+        /// </summary>
+        OCDEPORETRURN,
 
         ///<summary>
         ///OCDEPO ACCEPT GENEAL MPR
         /// </summary>
         OCDEPOACCPT,
 
-        ///<summary>
-        ///OCDEPO RETURN GENEAL MPR
-        /// </summary>
-        OCDEPORETRURN,
-        ///<summary>
-        ///OC HQ ACCEPT technical
-        /// </summary>
-        OCHQACCPT,
 
         ///<summary>
         ///OC HQ RETURN technical
@@ -44,42 +41,52 @@
         OCHQRETRUN,
 
         ///<summary>
-        ///D-FINANCE ACCPT
+        ///OC HQ ACCEPT technical
         /// </summary>
-        DFINANCEACCPT,
+        OCHQACCPT,
+
+
+        /// <summary>
+        ///D-FINANCE RETURN
+        /// </summary>
+        DFINANCERETRUN,
         ///<summary>
         ///D-FINANCE FINAL ACCPT
         /// </summary>
         DFINANCEFINALACCPT,
-        /// <summary>
-        ///D-FINANCE RETURN
+        ///<summary>
+        ///D-FINANCE ACCPT
         /// </summary>
-        DFINANCEFINALRETRUN,
+        DFINANCEACCPT,
 
-        ///<summary>
-        ///D-LOG / D-ENG ACCPT
-        /// </summary>
-        DLOGDENGACCPT,
-        ///<summary>
-        ///D-LOG / D-ENG FINAL ACCPT
-        /// </summary>
-        DLOGDENGFINALACCPT,
+
         /// <summary>
         ///D-LOG / D-ENG RETURN
         /// </summary>
         DLOGDENGRETUN,
         ///<summary>
-        ///SERVICE COMMANDER ACCPT
+        ///D-LOG / D-ENG FINAL ACCPT
         /// </summary>
-        COMMANDERACCPT,
+        DLOGDENGFINALACCPT,
         ///<summary>
-        ///SERVICE COMMANDER FINAL ACCPT
+        ///D-LOG / D-ENG ACCPT
         /// </summary>
-        COMMANDERFINALACCPT,
+        DLOGDENGACCPT,
+
         /// <summary>
         ///D-FINANCE RETURN
         /// </summary>
         COMMANDERRETRUN,
+        ///<summary>
+        ///SERVICE COMMANDER FINAL ACCPT
+        /// </summary>
+        COMMANDERFINALACCPT,
+        ///<summary>
+        ///SERVICE COMMANDER ACCPT
+        /// </summary>
+        COMMANDERACCPT,
+      
+      
 
 
 

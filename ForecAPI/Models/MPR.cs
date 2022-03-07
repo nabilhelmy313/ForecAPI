@@ -1,4 +1,6 @@
-﻿namespace ForecAPI.Models
+﻿using ForecAPI.Models.General;
+
+namespace ForecAPI.Models
 {
     public class MPR:BaseEntity
     {
@@ -17,5 +19,8 @@
 
         public string? Feedback { get; set; }
         public virtual Base AddressOfDelivery { get; set; }
-    }
+		public virtual MasterData MPRStatus { get; set; }
+		public virtual MasterData MPRMethodofDelivery { get; set; }
+		public virtual MasterData MPRType { get; set; }
+	}
 }

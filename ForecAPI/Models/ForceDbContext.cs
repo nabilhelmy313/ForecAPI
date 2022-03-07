@@ -79,6 +79,10 @@ namespace ForecAPI.Models
             {
                 ur.HasKey(ur => ur.Id);
                 ur.HasOne(ur => ur.AddressOfDelivery).WithMany(u => u.MPRs).HasForeignKey(ur => ur.Address_For_Delivery).HasPrincipalKey(a=>a.Code);
+                ur.HasOne(ur => ur.MPRStatus).WithMany(u => u.MPRStatus).HasForeignKey(ur => ur.Status).HasPrincipalKey(a => a.Master_Data_Code);
+                ur.HasOne(ur => ur.MPRMethodofDelivery).WithMany(u => u.MPRMethodofDelivery).HasForeignKey(ur => ur.MPRMethodofDelivery).HasPrincipalKey(a => a.Master_Data_Code);
+                ur.HasOne(ur => ur.MPRType).WithMany(u => u.MPRType).HasForeignKey(ur => ur.Type_Code).HasPrincipalKey(a => a.Master_Data_Code);
+
             });
         }
 

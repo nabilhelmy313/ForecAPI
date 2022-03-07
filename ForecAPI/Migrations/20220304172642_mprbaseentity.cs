@@ -1,4 +1,4 @@
-﻿gusing System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -9,10 +9,6 @@ namespace ForecAPI.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_MPRs_Bases_Address_For_Delivery",
-                table: "MPRs");
-
             migrationBuilder.AlterColumn<string>(
                 name: "Type_Code",
                 table: "MPRs",
@@ -111,13 +107,7 @@ namespace ForecAPI.Migrations
                 table: "Bases",
                 column: "Code");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_MPRs_Bases_Address_For_Delivery",
-                table: "MPRs",
-                column: "Address_For_Delivery",
-                principalTable: "Bases",
-                principalColumn: "Code",
-                onDelete: ReferentialAction.Cascade);
+        
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

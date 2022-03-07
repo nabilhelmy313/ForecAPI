@@ -25,5 +25,12 @@ namespace ForecAPI.Repoitories
             MPRStausEnum statusEnum = (MPRStausEnum)Enum.Parse(typeof(MPRStausEnum), status);
             return ((int)statusEnum);        
         }
+
+
+        public async Task<MPR> GetMPR(Guid id)
+        {
+            return await _forceDbContext.MPRs.Where(a => !a.Is_Deleted && a.Id == id).Include(a => a.MPRMethodofDelivery)
+                .Include(a => a.MPRStatus).Include(a => a.MPRType).Include(a=>a.AddressOfDelivery).FirstOrDefaultAsync();
+        }
     }
 }
